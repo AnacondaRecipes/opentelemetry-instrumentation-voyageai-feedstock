@@ -1,5 +1,5 @@
 {% set name = "opentelemetry-instrumentation-voyageai" %}
-{% set version = "0.60.0" %}
+{% set version = "0.57.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,20 +7,20 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/opentelemetry_instrumentation_voyageai-{{ version }}.tar.gz
-  sha256: 733c526f0bbaedf8d9a1d47c19aa0f1fe8e7ea5cab8c1baac55198b6b052a896
+  sha256: 346d36836c5e88782da5bd52ec5fbb4480780952559d20bb40a6e595b49b345e
 
 build:
-  noarch: python
+  skip: true  # [py<310]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
 
 requirements:
   host:
-    - python {{ python_min }}
+    - python
     - hatchling
     - pip
   run:
-    - python >={{ python_min }}
+    - python
     - opentelemetry-api >=1.38.0,<2.0.0
     - opentelemetry-instrumentation >=0.59b0
     - opentelemetry-semantic-conventions >=0.59b0
@@ -35,7 +35,7 @@ test:
     - pip check
   requires:
     - pip
-    - python {{ python_min }}
+    - python
 
 about:
   home: https://www.traceloop.com/openllmetry
